@@ -3,11 +3,8 @@ node {
     def mvnCli = "${mvnHome}/bin/mvn"
 
     properties([
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
-        disableConcurrentBuilds(),
+        disableConcurrentBuilds(), 
         [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/tguptaji/Jenkins-Example.git/'],
-        [$class: 'ThrottleJobProperty', categories: [], limitOneJobWithMatchingParams: false, maxConcurrentPerNode: 0, maxConcurrentTotal: 0, paramsToUseForLimit: '', throttleEnabled: true, throttleOption: 'project'],
-        pipelineTriggers([githubPush()]),
         parameters([string(defaultValue: 'DEV', description: 'env name', name: 'environment', trim: false)])
     ])
     stage('Checkout SCM'){
@@ -32,7 +29,7 @@ node {
         junit allowEmptyResults: true, testResults: '**/surefire-reports/*.xml'
     }
     stage('Deploy To Tomcat'){
-        sshagent(['root']) {
+        sshagent(['Node']) {
             sh 'scp -o StrictHostKeyChecking=no target/*.war root@13.233.87.117:/opt/apache-tomcat-7.0.94/webapps/'
         }
     }
