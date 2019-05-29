@@ -32,7 +32,7 @@ node {
         junit allowEmptyResults: true, testResults: '**/surefire-reports/*.xml'
     }
     stage('Deploy To Tomcat'){
-        sshagent(['test']) {
+        sshagent(['root']) {
             sh 'scp -o StrictHostKeyChecking=no target/*.war root@13.233.87.117:/opt/apache-tomcat-7.0.94/webapps/'
         }
     }
