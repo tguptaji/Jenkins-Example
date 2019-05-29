@@ -35,7 +35,7 @@ node {
     }
     stage('Smoke Test'){
         sleep 5
-        sh "curl 13.233.87.117:8080/petclinic"
+        sh "curl 172.31.29.254:8080/petclinic"
     }
 
 }
