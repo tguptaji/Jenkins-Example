@@ -5,13 +5,13 @@ node {
     properties([
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
         disableConcurrentBuilds(),
-        [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/tguptaji/PetClinic.git/'],
+        [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/tguptaji/Jenkins-Example.git/'],
         [$class: 'ThrottleJobProperty', categories: [], limitOneJobWithMatchingParams: false, maxConcurrentPerNode: 0, maxConcurrentTotal: 0, paramsToUseForLimit: '', throttleEnabled: true, throttleOption: 'project'],
         pipelineTriggers([githubPush()]),
         parameters([string(defaultValue: 'DEV', description: 'env name', name: 'environment', trim: false)])
     ])
     stage('Checkout SCM'){
-        git branch: 'master', credentialsId: 'github-creds', url: 'https://github.com/tguptaji/PetClinic'
+        git branch: 'master', credentialsId: 'github-creds', url: 'https://github.com/tguptaji/Jenkins-Example'
     }
     stage('Read praram'){
         echo "The environment chosen during the Job execution is ${params.environment}"
